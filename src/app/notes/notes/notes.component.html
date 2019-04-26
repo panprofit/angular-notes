@@ -1,0 +1,25 @@
+<div fxLayout="column"
+     fxLayoutAlign="center"
+     fxLayoutGap="2%">
+  <div fxLayoutAlign="center">
+    <button mat-raised-button
+            class="button"
+            title="New note"
+            [routerLink]="['new']"
+            color="primary">New note
+    </button>
+  </div>
+  <div *ngIf="(notes$ | async) as notes"
+       fxLayout="row wrap"
+       fxLayoutGap="2%"
+       fxLayoutAlign="center">
+    <app-note-preview *ngFor="let note of notes | noteTag: tag"
+                      [note]="note"
+                      [tag]="tag">
+    </app-note-preview>
+  </div>
+  <app-notes-tags *ngIf="(notes$ | async) as notes"
+                  [notes]="notes"
+                  fxLayoutAlign="center">
+  </app-notes-tags>
+</div>

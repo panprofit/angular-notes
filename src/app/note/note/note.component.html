@@ -1,0 +1,26 @@
+<div fxLayout="row wrap"
+     fxLayoutGap="0.5%"
+     fxLayoutAlign="center">
+  <mat-card class="mat-card"
+            *ngIf="(note$ | async) as note">
+    <app-note-form [text]="note.text"
+                   (textChanged)="saveText($event, note)"></app-note-form>
+    <app-note-tags [tags]="note.tags"></app-note-tags>
+    <hr>
+    <mat-card-actions align="end">
+      <button mat-raised-button
+              *ngIf="id"
+              color="warn"
+              (click)="deleteNote(note)">Delete
+      </button>
+      <button mat-raised-button
+              [routerLink]="['/']">Cancel
+      </button>
+      <button mat-raised-button
+              color="primary"
+              [disabled]="!note.text"
+              (click)="saveNote(note)">Save
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>

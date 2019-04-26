@@ -1,0 +1,11 @@
+<mat-card class="mat-card"
+          *ngIf="(notes | getTags) as tags">
+  <mat-chip-list *ngIf="(queryParams$ | async) as queryParams">
+    <mat-chip class="mat-chip cursor-pointer"
+              [routerLink]="[]"
+              [queryParams]="{tag: tag === queryParams['tag'] ? null : tag}"
+              title="{{tag === queryParams['tag']? 'Clear filter': 'Filter by tag'}}"
+              *ngFor="let tag of tags | tag: queryParams['tag']">{{tag}}
+    </mat-chip>
+  </mat-chip-list>
+</mat-card>
