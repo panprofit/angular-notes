@@ -3,6 +3,7 @@ import {INote} from '../../shared/note.model';
 import {DbService} from '../../shared/db.service';
 import {Observable} from 'rxjs';
 import {ActivatedRoute, Params} from '@angular/router';
+import {flatMap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-notes',
@@ -21,8 +22,8 @@ export class NotesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe((params: Params) =>
-      this.notes$ = this.dbService.getAll(this.tag = params.tag)
+    this.notes$ = this.route.queryParams.pipe(
+      flatMap((params: Params) => this.dbService.getAll(this.tag = params.tag))
     );
   }
 

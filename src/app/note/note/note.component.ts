@@ -3,7 +3,7 @@ import {INote} from '../../shared/note.model';
 import {DbService} from '../../shared/db.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {Observable} from 'rxjs';
-import {takeWhile} from 'rxjs/operators';
+import {flatMap, takeWhile} from 'rxjs/operators';
 
 @Component({
   selector: 'app-note',
@@ -25,8 +25,9 @@ export class NoteComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.route.params.subscribe((params: Params) =>
-      this.note$ = +params.id ? this.dbService.getOne(this.id = +params.id) : this.dbService.create()
+    this.note$ = this.route.params.pipe(
+      flatMap((params: Params) => +params.id ?
+        this.dbService.getOne(this.id = +params.id) : this.dbService.create())
     );
   }
 
