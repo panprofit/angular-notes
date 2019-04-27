@@ -1,5 +1,5 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {INote} from './note.model';
+import {INote} from '../note.model';
 
 @Pipe({
   name: 'getTags'
